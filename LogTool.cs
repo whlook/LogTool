@@ -33,10 +33,7 @@ namespace LogTool
         {
             string date = DateTime.Now.Year.ToString()+"年"+DateTime.Now.Month.ToString()+"月"+DateTime.Now.Day.ToString()+"日"+
                 DateTime.Now.Hour.ToString()+"时"+DateTime.Now.Minute.ToString()+"分"+DateTime.Now.Second.ToString()+"秒"+DateTime.Now.Millisecond.ToString()+"毫秒";
-          
-       
             WriteValue(date, "Error", info);
-
             xmlDoc.Save(path);
         }
         public static void Warning(string info)
@@ -125,12 +122,7 @@ namespace LogTool
         #endregion
 
         #region 写入值
-        /// <summary>
-        /// 在指定行列位置修改值，如果位置不存在，则添加，在此之前应该先创建或载入xml，否则失败
-        /// </summary>
-        /// <param name="rowKeyName">行首关键字，不存在则添加</param>
-        /// <param name="colKeyName">列首关键字，不存在则添加</param>
-        /// <param name="value"></param>
+        
         private static void WriteValue(string rowKey, string colKey, string value)
         {
             rowKey = rowPreName + rowKey;
