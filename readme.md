@@ -8,6 +8,8 @@
 
 有C++和C#两个版本
 
-### 状态
 
-暂时无C++版本
+版本|包含的文件|
+:---|:---------|
+C#  | LogTool.cs|
+C++ | LogTool.hpp tinyxml2.cpp,tinyxml2.h|
