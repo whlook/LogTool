@@ -1,3 +1,6 @@
+/*
+    wuhui
+*/
 #pragma once 
 #ifndef LOGTOOL_HPP_
 #define LOGTOOL_HPP_
@@ -15,6 +18,7 @@ namespace LogTool
 	{
 	public:
 		/*
+			init
 		*/
 		explicit Logger(std::string filePath)
 		{
@@ -28,6 +32,7 @@ namespace LogTool
 		}
 
 		/*
+			Error level
 		*/
 		void Error(std::string info)
 		{
@@ -37,6 +42,7 @@ namespace LogTool
 		}
 
 		/*
+			Warning level
 		*/
 		void Warning(std::string info)
 		{
@@ -46,6 +52,7 @@ namespace LogTool
 		}
 
 		/*
+			Debug level
 		*/
 		void Debug(std::string info)
 		{
@@ -54,6 +61,9 @@ namespace LogTool
 			xmlDoc.SaveFile(path.c_str());
 		}
 	private:
+		/*
+			获得系统时间，精度 秒
+		*/
 		std::string getTime()
 		{
 			std::string timeNow;
@@ -78,7 +88,9 @@ namespace LogTool
 			return timeNow;
 			
 		}
-
+		/*
+			按照行列格式写值
+		*/
 		void writeValue(std::string rowKey, std::string colKey, std::string value)
 		{
 			rowKey = rowPreName + rowKey;
@@ -113,5 +125,5 @@ namespace LogTool
 	};
 
 
-}
+} // end LogTool
 #endif //LOGTOOL_HPP_
