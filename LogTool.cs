@@ -20,12 +20,6 @@ namespace LogTool
         // 根节点
         private static XmlElement root = null;
 
-        // 行名称自动前缀
-        private static string rowPreName = "时间点_";
-
-        // 列名称自动前缀
-        private static string colPreName = "等级_";
-
         // 保存路径
         private static string path;
 
@@ -33,14 +27,26 @@ namespace LogTool
         {
             string date = DateTime.Now.Year.ToString()+"年"+DateTime.Now.Month.ToString()+"月"+DateTime.Now.Day.ToString()+"日"+
                 DateTime.Now.Hour.ToString()+"时"+DateTime.Now.Minute.ToString()+"分"+DateTime.Now.Second.ToString()+"秒"+DateTime.Now.Millisecond.ToString()+"毫秒";
-            WriteValue(date, "Error", info);
+
+            XmlElement val = xmlDoc.CreateElement("Error_"+date);
+       
+            val.InnerText = info;
+
+            root.AppendChild(val);
+
             xmlDoc.Save(path);
         }
         public static void Warning(string info)
         {
             string date = DateTime.Now.Year.ToString() + "年" + DateTime.Now.Month.ToString() + "月" + DateTime.Now.Day.ToString() + "日" +
                  DateTime.Now.Hour.ToString() + "时" + DateTime.Now.Minute.ToString() + "分" + DateTime.Now.Second.ToString() + "秒" + DateTime.Now.Millisecond.ToString() + "毫秒";
-            WriteValue(date, "Warning", info);
+            
+            XmlElement val = xmlDoc.CreateElement("Warning_"+date);
+       
+            val.InnerText = info;
+
+            root.AppendChild(val);
+
             xmlDoc.Save(path);
         }
 
@@ -48,7 +54,13 @@ namespace LogTool
         {
             string date = DateTime.Now.Year.ToString() + "年" + DateTime.Now.Month.ToString() + "月" + DateTime.Now.Day.ToString() + "日" +
                  DateTime.Now.Hour.ToString() + "时" + DateTime.Now.Minute.ToString() + "分" + DateTime.Now.Second.ToString() + "秒" + DateTime.Now.Millisecond.ToString() + "毫秒";
-            WriteValue(date, "Debug", info);
+            
+            XmlElement val = xmlDoc.CreateElement("Debug_"+date);
+       
+            val.InnerText = info;
+
+            root.AppendChild(val);
+
             xmlDoc.Save(path);
         }
  
@@ -120,33 +132,6 @@ namespace LogTool
             }
         }
         #endregion
-
-        #region 写入值
-        
-        private static void WriteValue(string rowKey, string colKey, string value)
-        {
-            rowKey = rowPreName + rowKey;
-
-            colKey = colPreName + colKey;
-
-            XmlElement newRow = xmlDoc.CreateElement(rowKey);
-                    
-            XmlElement newCol = xmlDoc.CreateElement(colKey);
-          
-            XmlElement val = xmlDoc.CreateElement("Info");
-       
-            val.InnerText = value;
-        
-            newCol.AppendChild(val);
-            
-            newRow.AppendChild(newCol);
-                    
-            root.AppendChild(newRow);
-   
-        }
-        #endregion
-
-        
 
     }
 }
