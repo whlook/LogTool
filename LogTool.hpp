@@ -23,8 +23,7 @@ namespace LogTool
 		explicit Logger(std::string filePath)
 		{
 			path = filePath;
-			colPreName = "等级";
-			rowPreName = "时间点";
+
 			root = xmlDoc.NewElement("logger");
 			xmlDoc.InsertFirstChild(root);
 			
@@ -37,7 +36,7 @@ namespace LogTool
 		void Error(std::string info)
 		{
 			std::string nowTime = getTime();
-			writeValue(nowTime, "Error", info);
+			writeValue("Error_"+nowTime, info);
 			xmlDoc.SaveFile(path.c_str());
 		}
 
@@ -47,7 +46,7 @@ namespace LogTool
 		void Warning(std::string info)
 		{
 			std::string nowTime = getTime();
-			writeValue(nowTime, "Warning", info);
+			writeValue("Warning_"+nowTime, info);
 			xmlDoc.SaveFile(path.c_str());
 		}
 
@@ -57,7 +56,7 @@ namespace LogTool
 		void Debug(std::string info)
 		{
 			std::string nowTime = getTime();
-			writeValue(nowTime, "Debug", info);
+			writeValue("Debug_"+nowTime, info);
 			xmlDoc.SaveFile(path.c_str());
 		}
 	private:
@@ -89,21 +88,15 @@ namespace LogTool
 			
 		}
 		/*
-			按照行列格式写值
+			写值
 		*/
-		void writeValue(std::string rowKey, std::string colKey, std::string value)
+		void writeValue(std::string key, std::string value)
 		{
-			rowKey = rowPreName + rowKey;
-			colKey = colPreName + colKey;
+	
+			pElement = xmlDoc.NewElement(key.c_str());
 
-			pElement = xmlDoc.NewElement(rowKey.c_str());
-			pElement_sub = xmlDoc.NewElement(colKey.c_str());
-			pElement_sub_ = xmlDoc.NewElement("info");
-
-			pElement_sub_->SetText(value.c_str());
-			pElement_sub->InsertFirstChild(pElement_sub_);
-			pElement->InsertFirstChild(pElement_sub);
-
+			pElement->SetText(value.c_str());
+	
 			root->InsertEndChild(pElement);
 
 		}
@@ -112,10 +105,6 @@ namespace LogTool
 		tinyxml2::XMLDocument xmlDoc;
 		tinyxml2::XMLNode * root = nullptr;
 		tinyxml2::XMLElement * pElement = nullptr;
-		tinyxml2::XMLElement * pElement_sub = nullptr;
-		tinyxml2::XMLElement * pElement_sub_ = nullptr;
-
-		std::string rowPreName, colPreName;
 
 		std::string path;
 
